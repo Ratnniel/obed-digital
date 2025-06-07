@@ -33,7 +33,7 @@ module parcial_7seg (
     and (and51, notA, notB, CC, DD); // 0011
     or (A, and1, and2, and3, and4, and5, and6, and7, and8, and9, and51);
 
-   // Segmento B
+  // Segmento B
 and (and10, notA, notB, notC, notD);
 and (and11, notA, notB, CC, notD);
 and (and12, notA, notB, CC, DD);
@@ -43,7 +43,11 @@ and (and15, AA, notB, notC, notD);
 and (and16, AA, notB, notC, DD);
 and (andX_B, notA, BB, notC, notD);
 and (andX_B2, notA, BB, notC, DD);
-or (B, and10, and11, and12, and14, and15, and16, andX_B, andX_B2);
+
+// Nuevo término para que B = 1 en 1010
+and (andB_1010, AA, notB, CC, notD);
+
+or (B, and10, and11, and12, and14, and15, and16, andX_B, andX_B2, andB_1010);
 
   // Segmento C
 and (and17, notA, notB, notC, notD);
@@ -61,26 +65,28 @@ or (C, and17, and18, and19, and20, and21, and22, and24, and25, andX_C, andX_C2);
 
 
     // Segmento D
-    and (and27, notA, notB, notC, DD);
-    and (and28, notA, notB, CC, DD);
-    and (and29, notA, BB, notC, notD);  // 0100 ya incluido aquí
-    and (and30, notA, BB, CC, notD);
-    and (and31, notA, BB, CC, DD);
-    and (and32, AA, notB, notC, notD);
-    and (and33, AA, notB, notC, DD);
-    or (D, and27, and28, and29, and30, and31, and32, and33);
+and (and27, notA, notB, notC, DD);
+and (and28, notA, notB, CC, DD);
+and (and29, notA, BB, notC, notD);
+and (and30, notA, BB, CC, notD);
+and (and31, notA, BB, CC, DD);
+and (and32, AA, notB, notC, notD);
+and (and33, AA, notB, notC, DD);
+and (andD_1010, AA, notB, CC, notD);  // Nuevo término para 1010
+or (D, and27, and28, and29, and30, and31, and32, and33, andD_1010);
+
 
     // Segmento E
-    and (and34, notA, notB, notC, notD);
-    // eliminado 0001 para que E = 0 en 0001
-    and (and36, notA, notB, CC, notD);
-    and (and37, notA, BB, CC, notD);
-    and (and38, notA, BB, CC, DD);
-    and (and39, AA, notB, notC, notD);
-    and (and40, AA, notB, notC, DD);
-    and (and52, notA, notB, CC, DD); // 0011
-    and (andX_E, notA, BB, notC, notD); // Agregado para 0100
-    or (E, and34, and36, and37, and38, and39, and40, and52, andX_E);
+and (and34, notA, notB, notC, notD);
+and (and36, notA, notB, CC, notD);
+and (and37, notA, BB, CC, notD);
+and (and38, notA, BB, CC, DD);
+and (and39, AA, notB, notC, notD);
+and (and40, AA, notB, notC, DD);
+and (and52, notA, notB, CC, DD);
+and (andX_E, notA, BB, notC, notD);
+and (andE_1010, AA, notB, CC, notD);  // Nuevo término para 1010
+or (E, and34, and36, and37, and38, and39, and40, and52, andX_E, andE_1010);
 
 // Segmento F (sin cambio)
 and (and41, notA, notB, notC, notD);
