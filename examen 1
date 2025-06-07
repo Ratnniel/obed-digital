@@ -1,0 +1,113 @@
+module parcial_7seg (
+    input AA, BB, CC, DD,
+    output A, B, C, D, E, F, G, X3, X2, X1, X0
+);
+
+    wire notA, notB, notC, notD;
+
+    wire and1, and2, and3, and4, and5, and6, and7, and8, and9, and10;
+    wire and11, and12, and13, and14, and15, and16, and17, and18, and19, and20;
+    wire and21, and22, and23, and24, and25, and26, and27, and28, and29, and30;
+    wire and31, and32, and33, and34, and36, and37, and38, and39, and40, and41;
+    wire and42, and43, and44a, and45a, and46a, and47a, and48, and50, and51;
+    wire and52, and53, and54, and55, and56, and57, and58;
+    // Nuevos términos para 0100
+    wire andX_B, andX_C, andX_E, andX_G;
+
+    // Inversores
+    not (notA, AA);
+    not (notB, BB);
+    not (notC, CC);
+    not (notD, DD);
+
+    // Segmento A
+    and (and1, notA, notB, notC, notD);
+    and (and2, notA, notB, notC, DD);
+    and (and3, notA, notB, CC, notD);
+    and (and4, notA, BB, notC, notD);  // 0100 ya incluido aquí
+    and (and5, notA, BB, CC, notD);
+    and (and6, notA, BB, CC, DD);
+    and (and7, AA, notB, notC, notD);
+    and (and8, AA, notB, notC, DD);
+    and (and9, AA, notB, CC, notD);
+    and (and51, notA, notB, CC, DD); // 0011
+    or (A, and1, and2, and3, and4, and5, and6, and7, and8, and9, and51);
+
+   // Segmento B
+and (and10, notA, notB, notC, notD);
+and (and11, notA, notB, CC, notD);
+and (and12, notA, notB, CC, DD);
+// and (and13, notA, BB, CC, notD); // Eliminado para que B=0 en 0110
+and (and14, notA, BB, CC, DD);
+and (and15, AA, notB, notC, notD);
+and (and16, AA, notB, notC, DD);
+and (andX_B, notA, BB, notC, notD);
+and (andX_B2, notA, BB, notC, DD);
+or (B, and10, and11, and12, and14, and15, and16, andX_B, andX_B2);
+
+  // Segmento C
+and (and17, notA, notB, notC, notD);
+and (and18, notA, notB, notC, DD);
+and (and19, notA, notB, CC, notD);
+and (and20, notA, notB, CC, DD);
+and (and21, notA, BB, notC, notD);
+and (and22, notA, BB, CC, notD);
+and (and24, AA, notB, notC, notD);
+and (and25, AA, notB, notC, DD);
+// and (and26, AA, notB, CC, notD);  // Eliminado para que C=0 en 1010
+and (andX_C, notA, BB, notC, notD);
+and (andX_C2, notA, BB, notC, DD);
+or (C, and17, and18, and19, and20, and21, and22, and24, and25, andX_C, andX_C2);
+
+
+    // Segmento D
+    and (and27, notA, notB, notC, DD);
+    and (and28, notA, notB, CC, DD);
+    and (and29, notA, BB, notC, notD);  // 0100 ya incluido aquí
+    and (and30, notA, BB, CC, notD);
+    and (and31, notA, BB, CC, DD);
+    and (and32, AA, notB, notC, notD);
+    and (and33, AA, notB, notC, DD);
+    or (D, and27, and28, and29, and30, and31, and32, and33);
+
+    // Segmento E
+    and (and34, notA, notB, notC, notD);
+    // eliminado 0001 para que E = 0 en 0001
+    and (and36, notA, notB, CC, notD);
+    and (and37, notA, BB, CC, notD);
+    and (and38, notA, BB, CC, DD);
+    and (and39, AA, notB, notC, notD);
+    and (and40, AA, notB, notC, DD);
+    and (and52, notA, notB, CC, DD); // 0011
+    and (andX_E, notA, BB, notC, notD); // Agregado para 0100
+    or (E, and34, and36, and37, and38, and39, and40, and52, andX_E);
+
+// Segmento F (sin cambio)
+and (and41, notA, notB, notC, notD);
+and (and42, notA, notB, notC, DD);
+and (and43, notA, notB, CC, notD);
+and (and44a, notA, BB, notC, notD);
+and (and45a, notA, BB, CC, notD);
+and (and46a, AA, notB, notC, notD);
+and (and47a, AA, notB, notC, DD);
+and (and53, notA, notB, CC, DD);
+or (F, and41, and42, and43, and44a, and45a, and46a, and47a, and53);
+
+    // Segmento G
+    and (and48, notA, notB, notC, notD);
+    and (and50, notA, notB, CC, notD);
+    and (and54, notA, BB, notC, notD);
+    and (and55, notA, BB, CC, notD);
+    and (and56, notA, BB, CC, DD);
+    and (and57, AA, notB, CC, notD);
+    and (and58, notA, notB, notC, DD); // <- añadido para 0001
+    and (andX_G, notA, BB, notC, notD); // Agregado para 0100
+    or (G, and48, and50, and54, and55, and56, and57, and58, andX_G);
+
+    // Salidas binarias
+    assign X3 = AA;
+    assign X2 = BB;
+    assign X1 = CC;
+    assign X0 = DD;
+
+endmodule
